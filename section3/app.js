@@ -1,8 +1,12 @@
+const validator = require('validator');
 const notes = require('./notes.js');
 
 let firstNote = notes("Yoooo this is a note");
 
 console.log(firstNote);
+console.log(validator.isEmail('yo@gmail.com'));
+console.log(validator.isURL('http://www.maslolabs.com'));
+
 
 
 
