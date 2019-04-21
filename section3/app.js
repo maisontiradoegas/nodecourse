@@ -1,19 +1,60 @@
-const validator = require('validator');
+//Requires
+const chalk = require('chalk');
+const yargs = require('yargs');
 const notes = require('./notes.js');
 
-let firstNote = notes("Yoooo this is a note");
+//Customize yargs version
+yargs.version('1.1.0');
 
-console.log(firstNote);
-console.log(validator.isEmail('yo@gmail.com'));
-console.log(validator.isURL('http://www.maslolabs.com'));
+// add, remove, read, list
+//Create add command
+yargs.command({
+    command: 'add',
+    describe: 'Add a new note', 
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string',
+        },
+        body: {
+            describe: 'Note content',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        console.log(chalk.blue.inverse('Title:') + argv.title);
+        console.log(chalk.blue.inverse('Body:') + argv.body);
+    }
+})
 
+//Create remove command
+yargs.command({
+    command: 'remove',
+    describe: 'remove a note',
+    handler: function () {
+        console.log('removing the note');
+    }
+})
 
+//Create list command
+yargs.command ({
+    command: 'list',
+    describe: 'list of my notes',
+    handler: function() {
+        console.log('Listing out my notes')
+    }
+})
 
+//Create read command 
+yargs.command({
+    command: 'read',
+    describe: 'read a note',
+    handler: function() {
+        console.log('reading notes');
+    } 
+})
 
-// const add = require('./utils.js');
-// const name = require('./yo.js');
+yargs.parse()
 
-// const sum = add(2, 9);
-
-// console.log(sum);
-// console.log(name);
