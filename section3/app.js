@@ -24,8 +24,7 @@ yargs.command({
         }
     },
     handler: function (argv) {
-        console.log(chalk.blue.inverse('Title:') + argv.title);
-        console.log(chalk.blue.inverse('Body:') + argv.body);
+        notes.addNote(argv.title, argv.body)
     }
 })
 
