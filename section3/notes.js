@@ -28,7 +28,7 @@ const removeNote = function(title, body) {
 		return note.title === title
 	}) 
 
-	if (duplicateNotes.length === 0) {
+	if (duplicateNotes.length ==! 0) {
 		notes.pop({
 			title: title,
 			body: body
