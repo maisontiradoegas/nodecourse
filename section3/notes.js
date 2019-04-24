@@ -23,7 +23,21 @@ const addNote = function(title, body) {
 }	
 
 const removeNote = function(title, body) {
-	console.log(title);
+	const notes = loadNotes();
+	const duplicateNotes = notes.filter(function(note) {
+		return note.title === title
+	}) 
+
+	if (duplicateNotes.length === 0) {
+		notes.pop({
+			title: title,
+			body: body
+		})
+		saveNotes(notes);
+		console.log('Note Removed');
+	} else {
+		console.log('Cannot Remove Note')
+	}
 }
 
 const saveNotes = function(notes) {
