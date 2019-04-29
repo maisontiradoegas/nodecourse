@@ -23,7 +23,8 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function (argv) {
+    //Remember this is the action that will happen when someone runs the 'add' command
+    handler(argv) {
         notes.addNote(argv.title, argv.body)
     }
 })
@@ -39,7 +40,7 @@ yargs.command({
             type: 'string',
         }
     },
-    handler: function (argv) {
+    handler(argv) {
         notes.removeNote(argv.title, argv.body)
     }
 })
@@ -57,10 +58,10 @@ yargs.command ({
 yargs.command({
     command: 'read',
     describe: 'read a note',
-    handler: function() {
+    handler() {
         console.log('reading notes');
     } 
 })
 
-yargs.parse()
-
+//Prase Yargs Results
+yargs.parse();
