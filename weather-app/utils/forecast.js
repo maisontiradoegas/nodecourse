@@ -1,24 +1,19 @@
 const request = require('request');
+const chalk = require('chalk');
 
 const forecast = (latitude, longitude, callback) => {
-    const url ='https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(latitude) + ',' + encodeURIComponent(longitude) + '.json?access_token=pk.eyJ1IjoibWFpc29udGlyYWRvZWdhcyIsImEiOiJjanZiYW1xNXMwZDQxNDFwOHZtMzRkMTc2In0.JLnYmUYq9Pwp6nxZXbiy4A&limit=1'
+    const url = `https://api.darksky.net/forecast/6147f41f7be1da4d64e83983f04c53a6/${encodeURIComponent(latitude)}, ${encodeURIComponent(longitude)}`;
 
-    console.log(url);
-
-    request({url: url, json: true}, (err, response) => {
-        if(err) {
-            console.log(err);
+    request({url: url, json: true}, (error, response) => {
+        if(error) {
+            console.log(chalk.red.inverse(err));
             callback('Unable to connect to location services', undefined);
-        } else if(response.body.features.length === 0) {
+        } else if(response.body.error) {
             callback('Coordinate error', undefined);} 
         else {
-            callback(undefined, {
-                latitude: response.body.features[0].center[0],
-                longitude: response.body.features[0].center[1]
-            });
+            callback(undefined,`${response.body.daily.data[0].summary} It is currently ${response.body.currently.temperature} degrees out. There is a ${response.body.currently.precipProbability}% chance of rain.`);
         }
     })
 }
-
 
 module.exports = forecast;
